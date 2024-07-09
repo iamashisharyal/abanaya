@@ -1,10 +1,16 @@
 #!/bin/bash
 
-#_Change_Working_Directory
-cd /home/ec2-user/server
+# Change to the project directory
+cd /home/ec2-user/server/src
 
-#_Delete_Old_PM2_Service
-#sudo pm2 delete Frontend
-#sudo pm2 start server.js --name Frontend
-pm2 delete Frontend
-pm2 start server.js --name Frontend
+# Start the application with PM2
+pm2 start npm --name "reactapp" -- start
+
+# Configure PM2 to start on system boot
+pm2 startup
+
+# Save the PM2 process list
+pm2 save
+
+# Restart all PM2 processes (including the application)
+pm2 restart all
